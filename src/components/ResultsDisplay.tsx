@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { FiZoomIn, FiZoomOut, FiRotateCcw, FiDownload, FiPrinter } from 'react-icons/fi';
 import { PredictionResult } from '@/types/types';
 
 interface ResultsDisplayProps {
