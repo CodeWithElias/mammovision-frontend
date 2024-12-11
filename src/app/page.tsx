@@ -1,52 +1,37 @@
-'use client';
-import { useState } from 'react';
-import ImageUpload from '@/components/ImageUpload';
-import ResultsDisplay from '@/components/ResultsDisplay';
-import { PredictionResult } from '@/types/types';
+import { Hero } from '@/components/sections/Hero';
+import Impact from '@/components/sections/Impact';
+import Methodology from '@/components/sections/Methodology';
+import Innovation from '@/components/sections/Innovation';
+import Team from '@/components/sections/Team';
 
 export default function Home() {
-  const [results, setResults] = useState<PredictionResult | null>(null);
-
   return (
-    <main className="py-8 px-4">
-      <div className="max-w-7xl mx-auto">
-        {/* Contenedor principal */}
-        <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-          <div className="p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6">
-              Análisis de Mamografía
-            </h2>
+    <main className="min-h-screen">
+      {/* Hero Section */}
+      <Hero />
 
-            {/* Grid de contenido */}
-            <div className="flex flex-col lg:flex-row gap-6">
-              {/* Panel izquierdo - ImageUpload */}
-              <div className="lg:w-[300px] flex-shrink-0">
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <ImageUpload onResults={setResults} />
-                </div>
-              </div>
+      {/* Impact Section */}
+      <Impact />
 
-              {/* Panel derecho - ResultsDisplay */}
-              <div className="flex-1">
-                {results ? (
-                  <ResultsDisplay results={results} />
-                ) : (
-                  <div className="bg-gray-50 rounded-lg p-8 text-center">
-                    <div className="max-w-md mx-auto">
-                      <p className="text-gray-600">
-                        Seleccione una imagen de mamografía para comenzar el análisis
-                      </p>
-                      <p className="text-sm text-gray-500 mt-2">
-                        Formatos soportados: DICOM, PNG, JPEG, TIFF
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+      {/* Innovation Section */}
+      <Innovation />
+
+      {/* Methodology Section */}
+      <Methodology />
+
+      {/* Team Section */}
+      <Team />
+
+    
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-8">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <p className="text-gray-400">
+            © 2024 MammoVision - UAGRM FICCT
+          </p>
         </div>
-      </div>
+      </footer>
     </main>
   );
 }

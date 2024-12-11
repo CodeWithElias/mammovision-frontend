@@ -210,7 +210,12 @@ export default function ResultsDisplay({ results }: ResultsDisplayProps) {
                 className="w-full h-full object-contain"
                 style={{
                   filter: `brightness(${imageSettings.brightness}%) contrast(${imageSettings.contrast}%)
-                          ${imageSettings.inverted ? 'invert(100%)' : ''}`
+                          ${imageSettings.inverted ? 'invert(100%)' : ''}`,
+                  display: results.processedImageUrl ? 'block' : 'none'
+                }}
+                onError={(e) => {
+                  console.error('Error loading processed image:', e);
+                  e.currentTarget.style.display = 'none';
                 }}
                 draggable={false}
               />
