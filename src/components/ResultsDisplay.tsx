@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { PredictionResult } from '@/types/types';
+import Image from 'next/image';
 
 interface ResultsDisplayProps {
   results: PredictionResult;
@@ -161,11 +162,12 @@ export default function ResultsDisplay({ results }: ResultsDisplayProps) {
                 transition: isDragging ? 'none' : 'transform 300ms ease-in-out'
               }}
             >
-              <img
+              <Image
                 src={results.imageUrl}
                 alt="Mamografía Original"
-                className="w-full h-full object-contain"
-                draggable={false}
+                width={500}
+                height={500}
+                className="max-w-full h-auto"
               />
             </div>
           </div>
@@ -204,10 +206,12 @@ export default function ResultsDisplay({ results }: ResultsDisplayProps) {
               onMouseUp={handleMouseUp}
               onMouseLeave={handleMouseUp}
             >
-              <img
+              <Image
                 src={results.processedImageUrl}
                 alt="Detecciones"
-                className="w-full h-full object-contain"
+                width={500}
+                height={500}
+                className="max-w-full h-auto"
                 style={{
                   filter: `brightness(${imageSettings.brightness}%) contrast(${imageSettings.contrast}%)
                           ${imageSettings.inverted ? 'invert(100%)' : ''}`,

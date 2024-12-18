@@ -1,16 +1,22 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-      domains: ['localhost'],
+      domains: ['fonts.googleapis.com'],
+      unoptimized: true
     },
-    async rewrites() {
+    async headers() {
       return [
         {
-          source: '/api/:path*',
-          destination: 'http://localhost:10000/:path*',
-        },
+          source: '/:path*',
+          headers: [
+            {
+              key: 'Access-Control-Allow-Origin',
+              value: '*'
+            }
+          ]
+        }
       ]
-    },
+    }
   }
   
   module.exports = nextConfig
