@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { FiUpload, FiImage, FiCheck, FiLoader } from 'react-icons/fi';
 import { PredictionResult } from '@/types/types';
 
@@ -13,11 +13,47 @@ export default function ImageUpload({ onResults }: ImageUploadProps) {
   const [preview, setPreview] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError(null);
     const file = e.target.files?.[0];
     
+    if (!file) return;
+
+    // Validar tipo de archivo
+    const validTypes = ['image/jpeg', 'image/png', 'image/tiff', 'application/dicom'];
+    if (!validTypes.includes(file.type)) {
+      setError('Formato de archivo no soportado');
+      return;
+    }
+
+    // Crear preview
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreview(reader.result as string);
+    };
+    reader.readAsDataURL(file);
+
+    setSelectedFile(file);
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(false);
+    
+    const file = e.dataTransfer.files[0];
     if (!file) return;
 
     // Validar tipo de archivo
@@ -69,55 +105,52 @@ export default function ImageUpload({ onResults }: ImageUploadProps) {
 
   return (
     <div className="space-y-4">
-      {/* Área de selección de archivo */}
-      <div className="relative">
+      {/* Área de arrastrar y soltar */}
+      <div 
+        className={`
+          border-2 border-dashed rounded-lg p-8
+          flex flex-col items-center justify-center
+          transition-colors cursor-pointer
+          ${isDragging ? 'border-[#FFD700] bg-[#FFD700]/5' : 'border-[#021526]/20 hover:border-[#021526]/40'}
+        `}
+        onClick={() => fileInputRef.current?.click()}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+      >
         <input
           type="file"
+          accept=".dcm,.png,.jpg,.jpeg,.tiff"
           onChange={handleFileSelect}
-          accept=".jpg,.jpeg,.png,.tiff,.dcm"
           className="hidden"
-          id="file-upload"
-          disabled={isLoading}
+          ref={fileInputRef}
         />
-        <label
-          htmlFor="file-upload"
-          className={`
-            flex flex-col items-center justify-center w-full h-48
-            border-2 border-dashed rounded-lg
-            cursor-pointer transition-colors
-            ${preview ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-blue-400'}
-          `}
-        >
-          {preview ? (
-            <div className="relative w-full h-full">
-              <img
-                src={preview}
-                alt="Preview"
-                className="w-full h-full object-contain"
-              />
-              <div className="absolute inset-0 bg-blue-500/10 flex items-center justify-center">
-                <FiCheck className="text-blue-500 text-2xl" />
-              </div>
+        
+        {selectedFile ? (
+          <div className="text-center">
+            <div className="w-12 h-12 bg-[#FFD700]/20 rounded-full mx-auto mb-3 flex items-center justify-center">
+              <FiCheck className="w-6 h-6 text-[#FFD700]" />
             </div>
-          ) : (
-            <div className="flex flex-col items-center space-y-2 p-4">
-              <FiImage className="text-4xl text-gray-400" />
-              <div className="text-center">
-                <p className="text-sm font-medium text-gray-600">
-                  Arrastre una imagen o haga clic para seleccionar
-                </p>
-                <p className="text-xs text-gray-500 mt-1">
-                  JPEG, PNG, TIFF o DICOM
-                </p>
-              </div>
+            <p className="text-[#021526] font-medium">{selectedFile.name}</p>
+            <p className="text-[#021526]/70 text-sm">
+              {(selectedFile.size / (1024 * 1024)).toFixed(2)} MB
+            </p>
+          </div>
+        ) : (
+          <div className="text-center">
+            <div className="w-12 h-12 bg-[#021526]/10 rounded-full mx-auto mb-3 flex items-center justify-center">
+              <FiImage className="w-6 h-6 text-[#021526]/70" />
             </div>
-          )}
-        </label>
+            <p className="text-[#021526]/70">
+              Arrastre una imagen o haga clic para seleccionar
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Mensaje de error */}
       {error && (
-        <div className="text-red-500 text-sm bg-red-50 p-2 rounded">
+        <div className="text-red-600 text-sm bg-red-100/50 p-2 rounded">
           {error}
         </div>
       )}
@@ -133,10 +166,10 @@ export default function ImageUpload({ onResults }: ImageUploadProps) {
           transition-colors
           ${
             !selectedFile
-              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              ? 'bg-[#021526]/10 text-[#021526]/40 cursor-not-allowed'
               : isLoading
-              ? 'bg-blue-100 text-blue-400 cursor-wait'
-              : 'bg-blue-600 text-white hover:bg-blue-700'
+              ? 'bg-[#FFD700]/20 text-[#021526]/40 cursor-wait'
+              : 'bg-[#FFD700] text-[#021526] hover:bg-[#FFD700]/90'
           }
         `}
       >
@@ -154,7 +187,7 @@ export default function ImageUpload({ onResults }: ImageUploadProps) {
       </button>
 
       {/* Información adicional */}
-      <div className="text-xs text-gray-500 text-center">
+      <div className="text-xs text-[#021526]/50 text-center">
         <p>Tamaño máximo: 10MB</p>
         <p>Resolución recomendada: 2000x2000px</p>
       </div>

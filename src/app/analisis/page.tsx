@@ -10,20 +10,22 @@ export default function Home() {
   const [results, setResults] = useState<PredictionResult | null>(null);
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-12 px-4">
+    <main className="min-h-screen bg-gradient-to-b from-[#EIF3F9] to-white py-12 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
             <Link 
               href="/"
-              className="inline-flex items-center text-gray-600 hover:text-blue-600 mb-4 transition-colors"
+              className="inline-flex items-center text-[#EIF3F9]/70 hover:text-[#EIF3F9] mb-4 transition-colors"
             >
               <ArrowLeftIcon className="w-4 h-4 mr-2" />
               Volver al inicio
             </Link>
-            <h1 className="text-3xl font-bold text-blue-900">Análisis de Mamografía</h1>
-            <p className="text-gray-600 mt-2">Detecta y analiza lesiones mamarias con precisión</p>
+            <h1 className="text-3xl font-bold text-[#EIF3F9]">Análisis de Mamografía</h1>
+            <p className="text-[#EIF3F9]/70 mt-2">
+              Detecta y analiza lesiones mamarias con precisión
+            </p>
           </div>
           
           <div className="hidden md:block">
@@ -31,7 +33,7 @@ export default function Home() {
               href="https://github.com/sm-nunez404/mammovision"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+              className="inline-flex items-center px-4 py-2 bg-[#021526] text-white rounded-lg text-sm hover:bg-[#021526]/90 transition-colors"
             >
               Ver documentación
             </Link>
@@ -39,25 +41,25 @@ export default function Home() {
         </div>
 
         {/* Contenedor principal */}
-        <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+        <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#021526]/10">
           <div className="p-8">
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Panel izquierdo */}
               <div className="lg:w-[350px] flex-shrink-0">
-                <div className="bg-blue-50/50 backdrop-blur-sm rounded-xl p-6 border border-blue-100">
-                  <h3 className="text-lg font-semibold text-blue-900 mb-4">
+                <div className="bg-[#EIF3F9] backdrop-blur-sm rounded-xl p-6 border border-[#021526]/10">
+                  <h3 className="text-lg font-semibold text-[#021526] mb-4">
                     Subir Imagen
                   </h3>
                   <ImageUpload onResults={setResults} />
-                  <div className="mt-4 p-4 bg-white/80 rounded-lg border border-blue-100">
-                    <h4 className="text-sm font-medium text-gray-700 mb-2">
+                  <div className="mt-4 p-4 bg-white/80 rounded-lg border border-[#021526]/10">
+                    <h4 className="text-sm font-medium text-[#021526] mb-2">
                       Formatos Soportados
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {['DICOM', 'PNG', 'JPEG', 'TIFF'].map((format) => (
                         <span 
                           key={format}
-                          className="px-2.5 py-1 bg-blue-100/80 text-blue-700 rounded-md text-sm font-medium"
+                          className="px-2.5 py-1 bg-[#021526]/10 text-[#021526] rounded-md text-sm font-medium"
                         >
                           {format}
                         </span>
@@ -72,11 +74,11 @@ export default function Home() {
                 {results ? (
                   <ResultsDisplay results={results} />
                 ) : (
-                  <div className="bg-gray-50/50 backdrop-blur-sm rounded-xl p-12 text-center border border-gray-100 h-full flex items-center justify-center">
+                  <div className="bg-[#EIF3F9]/50 backdrop-blur-sm rounded-xl p-12 text-center border border-[#021526]/10 h-full flex items-center justify-center">
                     <div className="max-w-md mx-auto">
-                      <div className="w-20 h-20 bg-blue-100/50 rounded-full mx-auto mb-6 flex items-center justify-center">
+                      <div className="w-20 h-20 bg-[#FFD700]/20 rounded-full mx-auto mb-6 flex items-center justify-center">
                         <svg 
-                          className="w-10 h-10 text-blue-600" 
+                          className="w-10 h-10 text-[#FFD700]" 
                           fill="none" 
                           stroke="currentColor" 
                           viewBox="0 0 24 24"
@@ -89,13 +91,13 @@ export default function Home() {
                           />
                         </svg>
                       </div>
-                      <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                      <h3 className="text-xl font-semibold text-[#021526] mb-3">
                         Comience su Análisis
                       </h3>
-                      <p className="text-gray-600">
+                      <p className="text-[#021526]/70">
                         Seleccione una imagen de mamografía para comenzar el análisis automático
                       </p>
-                      <p className="text-sm text-gray-500 mt-4">
+                      <p className="text-sm text-[#021526]/50 mt-4">
                         Recomendamos imágenes de alta calidad para mejores resultados
                       </p>
                     </div>

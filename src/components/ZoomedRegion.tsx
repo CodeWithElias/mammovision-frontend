@@ -46,8 +46,8 @@ export function ZoomedRegion({ imageUrl, region, className = '' }: ZoomedRegionP
 
   if (!region) {
     return (
-      <div className="flex items-center justify-center h-48 bg-gray-100 rounded-lg">
-        <span className="text-gray-500">No hay región seleccionada</span>
+      <div className="flex items-center justify-center h-48 bg-[#EIF3F9] rounded-lg">
+        <span className="text-[#021526]/70">No hay región seleccionada</span>
       </div>
     );
   }

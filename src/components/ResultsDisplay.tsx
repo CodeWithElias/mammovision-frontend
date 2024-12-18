@@ -129,30 +129,30 @@ export default function ResultsDisplay({ results }: ResultsDisplayProps) {
         {/* Imagen Original */}
         <div className="lg:col-span-4 space-y-2">
           <div className="flex items-center justify-between">
-            <h3 className="font-semibold text-base text-gray-800">Imagen Original</h3>
+            <h3 className="font-semibold text-base text-[#021526]">Imagen Original</h3>
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => handleZoomIn()}
-                className="p-1.5 text-gray-600 hover:bg-gray-100 rounded"
+                className="p-1.5 text-[#021526]/70 hover:bg-[#EIF3F9] rounded"
               >
                 🔍+
               </button>
               <button
                 onClick={() => handleZoomOut()}
-                className="p-1.5 text-gray-600 hover:bg-gray-100 rounded"
+                className="p-1.5 text-[#021526]/70 hover:bg-[#EIF3F9] rounded"
               >
                 🔍-
               </button>
               <button
                 onClick={() => handleResetView()}
-                className="p-1.5 text-gray-600 hover:bg-gray-100 rounded"
+                className="p-1.5 text-[#021526]/70 hover:bg-[#EIF3F9] rounded"
               >
                 ↺
               </button>
             </div>
           </div>
 
-          <div className="relative aspect-[3/4] bg-gray-100 rounded-lg overflow-hidden">
+          <div className="relative aspect-[3/4] bg-[#EIF3F9] rounded-lg overflow-hidden">
             <div 
               className="w-full h-full select-none"
               style={{
@@ -174,16 +174,16 @@ export default function ResultsDisplay({ results }: ResultsDisplayProps) {
         {/* Detecciones */}
         <div className="lg:col-span-4 space-y-2">
           <div className="flex items-center justify-between">
-            <h3 className="font-semibold text-base text-gray-800">Detecciones</h3>
+            <h3 className="font-semibold text-base text-[#021526]">Detecciones</h3>
             <div className="flex items-center space-x-2">
               <button
-                className="p-1.5 text-gray-600 hover:bg-gray-100 rounded"
+                className="p-1.5 text-[#021526]/70 hover:bg-[#EIF3F9] rounded"
                 title="Descargar imagen"
               >
                 ⬇️
               </button>
               <button
-                className="p-1.5 text-gray-600 hover:bg-gray-100 rounded"
+                className="p-1.5 text-[#021526]/70 hover:bg-[#EIF3F9] rounded"
                 title="Imprimir"
               >
                 🖨️
@@ -191,7 +191,7 @@ export default function ResultsDisplay({ results }: ResultsDisplayProps) {
             </div>
           </div>
 
-          <div className="relative aspect-[3/4] bg-gray-100 rounded-lg overflow-hidden">
+          <div className="relative aspect-[3/4] bg-[#EIF3F9] rounded-lg overflow-hidden">
             <div 
               className={`w-full h-full select-none ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
               style={{
@@ -219,88 +219,92 @@ export default function ResultsDisplay({ results }: ResultsDisplayProps) {
                 }}
                 draggable={false}
               />
-              {results.predictions?.[0] && (
+              {results.predictions.map((prediction, index) => (
                 <div
-                  className="absolute cursor-pointer hover:bg-red-500/20 transition-colors"
+                  key={index}
+                  className="absolute cursor-pointer hover:bg-[#FFD700]/20 transition-colors"
                   style={{
-                    left: `${results.predictions[0].location.x}px`,
-                    top: `${results.predictions[0].location.y}px`,
-                    width: `${results.predictions[0].location.width}px`,
-                    height: `${results.predictions[0].location.height}px`,
+                    left: `${prediction.location.x}px`,
+                    top: `${prediction.location.y}px`,
+                    width: `${prediction.location.width}px`,
+                    height: `${prediction.location.height}px`,
                     pointerEvents: 'all'
                   }}
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleRegionClick(results.predictions[0].location);
+                    handleRegionClick(prediction.location);
                   }}
                   title="Hacer clic para zoom en la región"
                 />
-              )}
+              ))}
             </div>
           </div>
         </div>
 
         {/* Panel de Detalles */}
         <div className="lg:col-span-4 space-y-4">
-          <h3 className="font-semibold text-base text-gray-800">Detalles de la Detección</h3>
+          <h3 className="font-semibold text-base text-[#021526]">Detalles de las Detecciones</h3>
           
-          <div className="bg-gray-50 rounded-lg p-4 space-y-4">
-            {/* Tipo de lesión */}
-            <div>
-              <h4 className="text-sm font-medium text-gray-700">Tipo:</h4>
-              <p className={`text-lg font-semibold ${
-                results.predictions[0]?.type === 'Maligno' ? 'text-red-600' : 'text-green-600'
-              }`}>
-                {results.predictions[0]?.type || 'No detectado'}
-              </p>
-            </div>
-
-            {/* Confianza */}
-            <div>
-              <h4 className="text-sm font-medium text-gray-700">Confianza:</h4>
-              <div className="mt-1">
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div
-                    className={`h-2 rounded-full ${
-                      results.predictions[0]?.type.toLowerCase() === 'maligno' 
-                        ? 'bg-red-500' 
-                        : 'bg-green-500'
-                    }`}
-                    style={{ width: `${(results.predictions[0]?.confidence || 0) * 100}%` }}
-                  />
+          <div className="space-y-4">
+            {results.predictions.map((prediction, index) => (
+              <div key={index} className="bg-[#EIF3F9] rounded-lg p-4 space-y-4">
+                {/* Tipo de lesión */}
+                <div>
+                  <h4 className="text-sm font-medium text-[#021526]/70">Tipo:</h4>
+                  <p className={`text-lg font-semibold ${
+                    prediction.type === 'Maligno' ? 'text-red-600' : 'text-green-600'
+                  }`}>
+                    {prediction.type || 'No detectado'}
+                  </p>
                 </div>
-                <p className="text-sm text-gray-600 mt-1">
-                  {((results.predictions[0]?.confidence || 0) * 100).toFixed(1)}%
-                </p>
+
+                {/* Confianza */}
+                <div>
+                  <h4 className="text-sm font-medium text-[#021526]/70">Confianza:</h4>
+                  <div className="mt-1">
+                    <div className="w-full bg-[#021526]/10 rounded-full h-2">
+                      <div
+                        className={`h-2 rounded-full ${
+                          prediction.type.toLowerCase() === 'maligno' 
+                            ? 'bg-red-500' 
+                            : 'bg-green-500'
+                        }`}
+                        style={{ width: `${(prediction.confidence || 0) * 100}%` }}
+                      />
+                    </div>
+                    <p className="text-sm text-[#021526]/70 mt-1">
+                      {((prediction.confidence || 0) * 100).toFixed(1)}%
+                    </p>
+                  </div>
+                </div>
+
+                {/* Dimensiones y Ubicación */}
+                <div>
+                  <h4 className="text-sm font-medium text-[#021526]/70">Dimensiones:</h4>
+                  <p className="text-sm text-[#021526]/70">
+                    {prediction.location.width.toFixed(1)} x {prediction.location.height.toFixed(1)} mm
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-medium text-[#021526]/70">Ubicación:</h4>
+                  <p className="text-sm text-[#021526]/70">
+                    X: {prediction.location.x.toFixed(1)}, Y: {prediction.location.y.toFixed(1)}
+                  </p>
+                </div>
               </div>
-            </div>
-
-            {/* Dimensiones */}
-            <div>
-              <h4 className="text-sm font-medium text-gray-700">Dimensiones:</h4>
-              <p className="text-sm text-gray-600">
-                {results.predictions[0]?.location.width.toFixed(1)} x {results.predictions[0]?.location.height.toFixed(1)} mm
-              </p>
-            </div>
-
-            {/* Ubicación */}
-            <div>
-              <h4 className="text-sm font-medium text-gray-700">Ubicación:</h4>
-              <p className="text-sm text-gray-600">
-                X: {results.predictions[0]?.location.x.toFixed(1)}, Y: {results.predictions[0]?.location.y.toFixed(1)}
-              </p>
-            </div>
+            ))}
           </div>
 
           {/* Controles de imagen */}
           <div className="space-y-4">
-            <h4 className="text-sm font-medium text-gray-700">Ajustes de imagen</h4>
+            <h4 className="text-sm font-medium text-[#021526]">Ajustes de imagen</h4>
             
-            {/* Brillo */}
+            {/* Brillo y Contraste */}
             <div className="space-y-1">
               <div className="flex items-center justify-between">
-                <label className="text-sm text-gray-600">Brillo</label>
-                <span className="text-sm text-gray-500">{imageSettings.brightness}%</span>
+                <label className="text-sm text-[#021526]/70">Brillo</label>
+                <span className="text-sm text-[#021526]/50">{imageSettings.brightness}%</span>
               </div>
               <input
                 type="range"
@@ -308,15 +312,14 @@ export default function ResultsDisplay({ results }: ResultsDisplayProps) {
                 max="200"
                 value={imageSettings.brightness}
                 onChange={(e) => setImageSettings(prev => ({ ...prev, brightness: Number(e.target.value) }))}
-                className="w-full"
+                className="w-full accent-[#FFD700]"
               />
             </div>
 
-            {/* Contraste */}
             <div className="space-y-1">
               <div className="flex items-center justify-between">
-                <label className="text-sm text-gray-600">Contraste</label>
-                <span className="text-sm text-gray-500">{imageSettings.contrast}%</span>
+                <label className="text-sm text-[#021526]/70">Contraste</label>
+                <span className="text-sm text-[#021526]/50">{imageSettings.contrast}%</span>
               </div>
               <input
                 type="range"
@@ -324,7 +327,7 @@ export default function ResultsDisplay({ results }: ResultsDisplayProps) {
                 max="200"
                 value={imageSettings.contrast}
                 onChange={(e) => setImageSettings(prev => ({ ...prev, contrast: Number(e.target.value) }))}
-                className="w-full"
+                className="w-full accent-[#FFD700]"
               />
             </div>
           </div>
