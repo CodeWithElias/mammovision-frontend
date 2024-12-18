@@ -10,7 +10,6 @@ interface ImageUploadProps {
 
 export default function ImageUpload({ onResults }: ImageUploadProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -28,13 +27,6 @@ export default function ImageUpload({ onResults }: ImageUploadProps) {
       setError('Formato de archivo no soportado');
       return;
     }
-
-    // Crear preview
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setPreview(reader.result as string);
-    };
-    reader.readAsDataURL(file);
 
     setSelectedFile(file);
   };
@@ -63,13 +55,6 @@ export default function ImageUpload({ onResults }: ImageUploadProps) {
       return;
     }
 
-    // Crear preview
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setPreview(reader.result as string);
-    };
-    reader.readAsDataURL(file);
-
     setSelectedFile(file);
   };
 
@@ -93,10 +78,9 @@ export default function ImageUpload({ onResults }: ImageUploadProps) {
       }
 
       const data = await response.json();
-      console.log('Respuesta del backend:', data);
       onResults(data);
     } catch (err) {
-      console.error('Error completo:', err);
+      console.error('Error:', err);
       setError(err instanceof Error ? err.message : 'Error al procesar la imagen');
     } finally {
       setIsLoading(false);
@@ -104,14 +88,17 @@ export default function ImageUpload({ onResults }: ImageUploadProps) {
   };
 
   return (
-    <div className="space-y-4">
-      {/* Área de arrastrar y soltar */}
+    <div className="space-y-6">
       <div 
         className={`
-          border-2 border-dashed rounded-lg p-8
+          relative border-2 border-dashed rounded-xl p-10
           flex flex-col items-center justify-center
-          transition-colors cursor-pointer
-          ${isDragging ? 'border-[#FFD700] bg-[#FFD700]/5' : 'border-[#021526]/20 hover:border-[#021526]/40'}
+          transition-all duration-300 cursor-pointer
+          min-h-[200px]
+          ${isDragging 
+            ? 'border-[#FFD700] bg-[#FFD700]/5 scale-105' 
+            : 'border-[#021526]/20 hover:border-[#FFD700] hover:bg-[#FFD700]/5'
+          }
         `}
         onClick={() => fileInputRef.current?.click()}
         onDragOver={handleDragOver}
@@ -126,70 +113,87 @@ export default function ImageUpload({ onResults }: ImageUploadProps) {
           ref={fileInputRef}
         />
         
-        {selectedFile ? (
-          <div className="text-center">
-            <div className="w-12 h-12 bg-[#FFD700]/20 rounded-full mx-auto mb-3 flex items-center justify-center">
-              <FiCheck className="w-6 h-6 text-[#FFD700]" />
+        {!selectedFile ? (
+          <div className="text-center space-y-4">
+            <div className="w-16 h-16 bg-[#FFD700]/10 rounded-xl mx-auto flex items-center justify-center">
+              <FiImage className="w-8 h-8 text-[#FFD700]" />
             </div>
-            <p className="text-[#021526] font-medium">{selectedFile.name}</p>
-            <p className="text-[#021526]/70 text-sm">
-              {(selectedFile.size / (1024 * 1024)).toFixed(2)} MB
-            </p>
+            <div>
+              <p className="text-[#021526] font-medium mb-1">
+                Arrastre su imagen aquí o haga clic para seleccionar
+              </p>
+              <p className="text-sm text-[#021526]/60">
+                Formatos soportados: DICOM, PNG, JPEG, TIFF
+              </p>
+            </div>
           </div>
         ) : (
-          <div className="text-center">
-            <div className="w-12 h-12 bg-[#021526]/10 rounded-full mx-auto mb-3 flex items-center justify-center">
-              <FiImage className="w-6 h-6 text-[#021526]/70" />
+          <div className="text-center space-y-4">
+            <div className="w-16 h-16 bg-[#FFD700]/20 rounded-xl mx-auto flex items-center justify-center">
+              <FiCheck className="w-8 h-8 text-[#FFD700]" />
             </div>
-            <p className="text-[#021526]/70">
-              Arrastre una imagen o haga clic para seleccionar
-            </p>
+            <div>
+              <p className="text-[#021526] font-medium mb-1">{selectedFile.name}</p>
+              <p className="text-sm text-[#021526]/60">
+                {(selectedFile.size / (1024 * 1024)).toFixed(2)} MB
+              </p>
+            </div>
           </div>
         )}
       </div>
 
-      {/* Mensaje de error */}
       {error && (
-        <div className="text-red-600 text-sm bg-red-100/50 p-2 rounded">
-          {error}
+        <div className="flex items-center space-x-2 text-red-600 text-sm bg-red-100/50 p-3 rounded-lg">
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>{error}</span>
         </div>
       )}
 
-      {/* Botón de análisis */}
       <button
         onClick={handleUpload}
         disabled={!selectedFile || isLoading}
         className={`
-          w-full py-2 px-4 rounded-md
-          flex items-center justify-center space-x-2
+          w-full py-3 px-4 rounded-xl
+          flex items-center justify-center space-x-3
           font-medium text-sm
-          transition-colors
+          transition-all duration-300
           ${
             !selectedFile
               ? 'bg-[#021526]/10 text-[#021526]/40 cursor-not-allowed'
               : isLoading
               ? 'bg-[#FFD700]/20 text-[#021526]/40 cursor-wait'
-              : 'bg-[#FFD700] text-[#021526] hover:bg-[#FFD700]/90'
+              : 'bg-[#FFD700] text-[#021526] hover:bg-[#FFD700]/90 hover:scale-[1.02] active:scale-[0.98]'
           }
         `}
       >
         {isLoading ? (
           <>
-            <FiLoader className="animate-spin" />
-            <span>Analizando...</span>
+            <FiLoader className="animate-spin w-5 h-5" />
+            <span>Analizando imagen...</span>
           </>
         ) : (
           <>
-            <FiUpload />
+            <FiUpload className="w-5 h-5" />
             <span>Analizar Imagen</span>
           </>
         )}
       </button>
 
-      {/* Información adicional */}
-      <div className="text-xs text-[#021526]/50 text-center">
-        <p>Tamaño máximo: 10MB</p>
-        <p>Resolución recomendada: 2000x2000px</p>
+      <div className="flex items-center justify-center space-x-6 text-xs text-[#021526]/50">
+        <div className="flex items-center space-x-1">
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <span>Tamaño máximo: 10MB</span>
+        </div>
+        <div className="flex items-center space-x-1">
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9h.01M21 9h.01M3 15h.01M21 15h.01M12 3v.01M12 21v.01M9 3h.01M15 3h.01M9 21h.01M15 21h.01" />
+          </svg>
+          <span>Resolución: 2000×2000px</span>
+        </div>
       </div>
     </div>
   );
