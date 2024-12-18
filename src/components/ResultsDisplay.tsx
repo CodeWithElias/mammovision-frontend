@@ -168,6 +168,8 @@ export default function ResultsDisplay({ results }: ResultsDisplayProps) {
                 width={500}
                 height={500}
                 className="max-w-full h-auto"
+                unoptimized
+                priority
               />
             </div>
           </div>
@@ -212,6 +214,7 @@ export default function ResultsDisplay({ results }: ResultsDisplayProps) {
                 width={500}
                 height={500}
                 className="max-w-full h-auto"
+                unoptimized
                 style={{
                   filter: `brightness(${imageSettings.brightness}%) contrast(${imageSettings.contrast}%)
                           ${imageSettings.inverted ? 'invert(100%)' : ''}`,
