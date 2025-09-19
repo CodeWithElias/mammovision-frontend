@@ -5,8 +5,14 @@ import ResultsDisplay from '@/components/ResultsDisplay';
 import { PredictionResult } from '@/types/types';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import { useLanguage } from '@/idiomas/LanguageContext';
+import { translations } from '@/idiomas/translations';
 
 export default function Home() {
+
+  const {lang} = useLanguage();
+  const t = translations[lang];
+
   const [results, setResults] = useState<PredictionResult | null>(null);
 
   return (
@@ -20,11 +26,11 @@ export default function Home() {
               className="inline-flex items-center text-[#EIF3F9]/70 hover:text-[#EIF3F9] mb-4 transition-colors"
             >
               <ArrowLeftIcon className="w-4 h-4 mr-2" />
-              Volver al inicio
+              {t.analisis_span}
             </Link>
-            <h1 className="text-3xl font-bold text-[#EIF3F9]">Análisis de Mamografía</h1>
+            <h1 className="text-3xl font-bold text-[#EIF3F9]">{t.analisis_title}</h1>
             <p className="text-[#EIF3F9]/70 mt-2">
-              Detecta y analiza lesiones mamarias con precisión
+              {t.analisis_description}
             </p>
           </div>
           
@@ -35,7 +41,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="inline-flex items-center px-4 py-2 bg-[#021526] text-white rounded-lg text-sm hover:bg-[#021526]/90 transition-colors"
             >
-              Ver documentación
+              {t.analisis_button}
             </Link>
           </div>
         </div>
@@ -48,12 +54,12 @@ export default function Home() {
               <div className="lg:w-[350px] flex-shrink-0">
                 <div className="bg-[#EIF3F9] backdrop-blur-sm rounded-xl p-6 border border-[#021526]/10">
                   <h3 className="text-lg font-semibold text-[#021526] mb-4">
-                    Subir Imagen
+                    {t.analisis_button2}
                   </h3>
                   <ImageUpload onResults={setResults} />
                   <div className="mt-4 p-4 bg-white/80 rounded-lg border border-[#021526]/10">
                     <h4 className="text-sm font-medium text-[#021526] mb-2">
-                      Formatos Soportados
+                      {t.analisis_format}
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {['DICOM', 'PNG', 'JPEG', 'TIFF'].map((format) => (
@@ -92,13 +98,13 @@ export default function Home() {
                         </svg>
                       </div>
                       <h3 className="text-xl font-semibold text-[#021526] mb-3">
-                        Comience su Análisis
+                        {t.analisis_span2}
                       </h3>
                       <p className="text-[#021526]/70">
-                        Seleccione una imagen de mamografía para comenzar el análisis automático
+                        {t.analisis_parafo1}
                       </p>
                       <p className="text-sm text-[#021526]/50 mt-4">
-                        Recomendamos imágenes de alta calidad para mejores resultados
+                        {t.analisis_parafo2}
                       </p>
                     </div>
                   </div>

@@ -1,3 +1,4 @@
+'use client'
 import { Section } from '../ui/Section';
 import { SectionHeader } from '../ui/SectionHeader';
 import { 
@@ -7,43 +8,49 @@ import {
   ChartBarIcon,
   ExclamationCircleIcon 
 } from '@heroicons/react/24/outline';
+import { translations } from '@/idiomas/translations';
+import { useLanguage } from '@/idiomas/LanguageContext';
 
 export default function Problem() {
+  
+  const {lang} = useLanguage();
+  const t = translations[lang];
+
   const problems = [
     {
       icon: ExclamationTriangleIcon,
-      title: "Alta Tasa de Mortalidad",
-      description: "El cáncer de mama es la principal causa de muerte en mujeres, con 2.3M+ casos anuales globalmente.",
+      title: t.problem1_title,
+      description: t.problem1_description,
       metrics: [
-        { label: "Casos Anuales", value: "2.3M+" },
-        { label: "Mortalidad", value: "685K+" }
+        { label: t.problem1_label1, value: "2.3M+" },
+        { label: t.problem1_label2, value: "685K+" }
       ]
     },
     {
       icon: ChartBarIcon,
-      title: "Errores en Diagnóstico",
-      description: "La interpretación de mamografías es compleja y hasta un 20% de lesiones malignas no son detectadas.",
+      title: t.problem2_title,
+      description: t.problem2_description,
       metrics: [
-        { label: "Falsos Negativos", value: "20%" },
-        { label: "Error Humano", value: "~15%" }
+        { label: t.problem2_label1, value: "20%" },
+        { label: t.problem2_label2, value: "~15%" }
       ]
     },
     {
       icon: ClockIcon,
-      title: "Sobrecarga Laboral",
-      description: "Los radiólogos analizan cientos de imágenes diarias, aumentando el riesgo de fatiga y omisiones.",
+      title: t.problem3_title,
+      description: t.problem3_description,
       metrics: [
-        { label: "Sobrecarga", value: "+85%" },
-        { label: "Tiempo/Imagen", value: "~4min" }
+        { label: t.problem3_label1, value: "+85%" },
+        { label: t.problem3_label2, value: "~4min" }
       ]
     },
     {
       icon: UsersIcon,
-      title: "Acceso Limitado",
-      description: "En países de bajos recursos, muchos hospitales no cuentan con herramientas avanzadas de diagnóstico.",
+      title: t.problem4_title,
+      description: t.problem4_description,
       metrics: [
-        { label: "Déficit", value: "60%" },
-        { label: "Cobertura", value: "-40%" }
+        { label: t.problem4_label1, value: "60%" },
+        { label: t.problem4_label2, value: "-40%" }
       ]
     }
   ];
@@ -51,10 +58,10 @@ export default function Problem() {
   return (
     <Section decorative>
       <SectionHeader
-        title="Problemática Actual"
-        subtitle="Desafíos críticos en la detección del cáncer de mama"
+        title={t.titulo_problema}
+        subtitle={t.subtitulo_problema}
         badge={{
-          text: "Desafíos Críticos",
+          text: t.text_problema,
           icon: ExclamationCircleIcon
         }}
       />

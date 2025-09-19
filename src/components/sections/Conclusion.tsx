@@ -1,3 +1,5 @@
+'use client'
+import { useLanguage } from '@/idiomas/LanguageContext';
 import { Section } from '../ui/Section';
 import { SectionHeader } from '../ui/SectionHeader';
 import { 
@@ -7,43 +9,48 @@ import {
   SparklesIcon,
   StarIcon 
 } from '@heroicons/react/24/outline';
+import { translations } from '@/idiomas/translations';
 
 export default function Conclusion() {
+
+  const {lang} = useLanguage();
+  const t = translations[lang];
+
   const conclusions = [
     {
       icon: HeartIcon,
-      title: "Impacto en Vidas",
-      description: "Solución integral que redefine la detección temprana del cáncer de mama, salvando millones de vidas.",
+      title: t.conclusion1_title,
+      description: t.conclusion1_description,
       metrics: [
-        { label: "Detección", value: "+20%" },
-        { label: "Supervivencia", value: "+30%" }
+        { label: t.conclusion1_label, value: "+20%" },
+        { label: t.conclusion1_label2, value: "+30%" }
       ]
     },
     {
       icon: LightBulbIcon,
-      title: "Innovación Tecnológica",
-      description: "Combinación única de precisión y rapidez mediante inteligencia artificial avanzada.",
+      title: t.conclusion2_title,
+      description: t.conclusion2_description,
       metrics: [
-        { label: "Precisión", value: "54.5%" },
-        { label: "Tiempo", value: "~1.2s" }
+        { label: t.conclusion2_label1, value: "54.5%" },
+        { label: t.conclusion2_label2, value: "~1.2s" }
       ]
     },
     {
       icon: GlobeAltIcon,
-      title: "Accesibilidad Global",
-      description: "Democratización de tecnología avanzada, cerrando la brecha en sistemas de salud.",
+      title: t.conclusion3_title,
+      description: t.conclusion3_description,
       metrics: [
-        { label: "Cobertura", value: "100%" },
-        { label: "Adopción", value: "89%" }
+        { label: t.conclusion3_label1, value: "100%" },
+        { label: t.conclusion3_label2, value: "89%" }
       ]
     },
     {
       icon: SparklesIcon,
-      title: "Eficiencia Económica",
-      description: "Reducción significativa de costos médicos y optimización de recursos sanitarios.",
+      title: t.conclusion4_title,
+      description: t.conclusion4_description,
       metrics: [
-        { label: "Ahorro", value: "40%" },
-        { label: "ROI", value: "+65%" }
+        { label: t.conclusion4_label1, value: "40%" },
+        { label: t.conclusion4_label2, value: "+65%" }
       ]
     }
   ];
@@ -51,10 +58,10 @@ export default function Conclusion() {
   return (
     <Section decorative>
       <SectionHeader
-        title="Conclusión"
-        subtitle="Transformando el futuro de la detección del cáncer de mama"
+        title= {t.conclusion_title}
+        subtitle= {t.conclusion_subtitle}
         badge={{
-          text: "Impacto Real",
+          text: t.conclusion_text,
           icon: StarIcon
         }}
       />

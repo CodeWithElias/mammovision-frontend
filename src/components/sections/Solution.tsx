@@ -1,3 +1,5 @@
+'use client'
+import { useLanguage } from '@/idiomas/LanguageContext';
 import { Section } from '../ui/Section';
 import { SectionHeader } from '../ui/SectionHeader';
 import { 
@@ -7,43 +9,48 @@ import {
   GlobeAltIcon,
   SparklesIcon 
 } from '@heroicons/react/24/outline';
+import { translations } from '@/idiomas/translations';
 
 export default function Solution() {
+
+  const {lang} = useLanguage();
+  const t = translations[lang];
+
   const solutions = [
     {
       icon: MagnifyingGlassIcon,
-      title: "Detección y Segmentación",
-      description: "Identificación y delimitación precisa de lesiones benignas y malignas en tiempo real.",
+      title: t.solution1_title,
+      description: t.solution1_description,
       metrics: [
-        { label: "mAP@50", value: "48.5%" },
-        { label: "IoU", value: "≥0.5" }
+        { label: t.solution1_label1, value: "48.5%" },
+        { label: t.solution1_label2, value: "≥0.5" }
       ]
     },
     {
       icon: ShieldCheckIcon,
-      title: "Reducción de Falsos Negativos",
-      description: "Sistema optimizado para maximizar la sensibilidad en la detección de lesiones malignas.",
+      title: t.solution2_title,
+      description: t.solution2_description,
       metrics: [
-        { label: "Recall", value: "57%" },
-        { label: "Precisión", value: "54.5%" }
+        { label: t.solution2_label1, value: "57%" },
+        { label: t.solution2_label2, value: "54.5%" }
       ]
     },
     {
       icon: ArrowPathIcon,
-      title: "Optimización de Flujo",
-      description: "Automatización del análisis inicial para permitir enfoque en casos críticos.",
+      title: t.solution3_title,
+      description: t.solution3_description,
       metrics: [
-        { label: "Tiempo", value: "~1.2s" },
-        { label: "Eficiencia", value: "+65%" }
+        { label: t.solution3_label1, value: "~1.2s" },
+        { label: t.solution3_label2, value: "+65%" }
       ]
     },
     {
       icon: GlobeAltIcon,
-      title: "Accesibilidad Total",
-      description: "Compatible con diversos niveles de hardware, democratizando el acceso a la tecnología.",
+      title: t.solution4_title,
+      description: t.solution4_description,
       metrics: [
-        { label: "Cobertura", value: "100%" },
-        { label: "Adaptabilidad", value: "Alta" }
+        { label: t.solution4_label1, value: "100%" },
+        { label: t.solution4_label2, value: t.solution4_value1 }
       ]
     }
   ];
@@ -51,10 +58,10 @@ export default function Solution() {
   return (
     <Section decorative>
       <SectionHeader
-        title="Nuestra Solución"
-        subtitle="Sistema avanzado de detección y segmentación con IA"
+        title= {t.solution_title}
+        subtitle= {t.solution_subtitle}
         badge={{
-          text: "Tecnología YOLOv11-seg",
+          text: t.solution_text,
           icon: SparklesIcon
         }}
       />

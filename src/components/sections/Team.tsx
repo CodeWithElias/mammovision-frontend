@@ -1,36 +1,43 @@
+'use client'
 import { Section } from '../ui/Section';
 import { SectionHeader } from '../ui/SectionHeader';
 import { Button } from '../ui/Button';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import Image from 'next/image';
+import { useLanguage } from '@/idiomas/LanguageContext';
+import { translations } from '@/idiomas/translations';
 
 export default function Team() {
+
+  const { lang } = useLanguage();
+  const t = translations[lang];
+
   const team = [
     {
       name: "Sergio Mauricio Nuñez",
-      role: "Desarrollo Principal, Computer Vision, AI Developer & Full Stack Developer",
+      role: t.team1_role,
       image: "/images/team/mauricio.jpg",
       github: "sm-nunez404",
       linkedin: "smnunez404"
     },
     {
       name: "Silvia Colque",
-      role: "AI Data Engineer",
+      role: t.team2_role,
       image: "/images/team/silvia.jpg",
       github: "silvia-colque",
       linkedin: "colque-silvia-3825902b3"
     },
     {
       name: "Keila Rojas",
-      role: "Investigación y Desarrollo",
+      role: t.team3_role,
       image: "/images/team/keila.jpg",
       github: "keila-rojas",
       linkedin: "keila-rojas-213161329"
     },
     {
       name: "Elias Puma",
-      role: "Frontend Developer & Data Engineer",
+      role: t.team4_role,
       image: "/images/team/elias.jpg",
       github: "elias-puma",
       linkedin: "elias-puma-3ab976281"
@@ -41,10 +48,10 @@ export default function Team() {
     <>
       <Section decorative>
         <SectionHeader
-          title="Equipo de Desarrollo"
-          subtitle="Profesionales comprometidos con la innovación médica"
+          title= {t.team_title}
+          subtitle={t.team_subtitle}
           badge={{
-            text: "Nuestro Equipo",
+            text: t.team_text,
             icon: UsersIcon
           }}
         />
@@ -92,8 +99,8 @@ export default function Team() {
       <Section>
         <div className="text-center">
           <SectionHeader
-            title="¿Interesado en Colaborar?"
-            subtitle="Estamos buscando colaboradores para expandir el alcance de MammoVision"
+            title= {t.colaboration_title}
+            subtitle= {t.colaboration_subtitle}
           />
           
           <Button
@@ -102,7 +109,7 @@ export default function Team() {
             className="group inline-flex items-center gap-3 px-8 py-4 bg-[#FFD700] hover:bg-[#FFD700]/90 text-[#021526] transform hover:scale-105 transition-all duration-200"
           >
             <FaGithub className="w-6 h-6 group-hover:rotate-12 transition-transform" />
-            <span>Contribuir en GitHub</span>
+            <span>{t.colaboration_span}</span>
           </Button>
         </div>
       </Section>

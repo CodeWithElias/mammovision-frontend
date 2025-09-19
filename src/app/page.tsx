@@ -11,26 +11,26 @@ import Scalability from '@/components/sections/Scalability';
 import Team from '@/components/sections/Team';
 import Conclusion from  '@/components/sections/Conclusion';
 import CallToAction from '@/components/sections/CallToAction';
-
+// main.tsx o App.tsx
+import { LanguageProvider } from '../idiomas/LanguageContext'
 
 
 export default function Home() {
   return (
     <main className="min-h-screen">
-      <Hero />
-      <Introduction/>
-      <Problem />
-      <Solution/>
-      <Value />
-      <Technology/>
-      <Business />
-      <Impact />
-      <Validation />
-      <Scalability/>
-      <Team />
-      <Conclusion/>     
-      <CallToAction />
-
+        <Hero />
+        <Introduction/>
+        <Problem />
+        <Solution/>
+        <Value />
+        <Technology/>
+        <Business />
+        <Impact />
+        <Validation />
+        <Scalability/>
+        <Team />
+        <Conclusion/>     
+        <CallToAction />
       
       <footer className="bg-gray-900 text-white py-8">
         <div className="max-w-7xl mx-auto px-4 text-center">

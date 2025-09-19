@@ -1,3 +1,5 @@
+'use client'
+import { useLanguage } from '@/idiomas/LanguageContext';
 import { Section } from '../ui/Section';
 import { SectionHeader } from '../ui/SectionHeader';
 import { 
@@ -7,43 +9,48 @@ import {
   BeakerIcon,
   BuildingOfficeIcon 
 } from '@heroicons/react/24/outline';
+import { translations } from '@/idiomas/translations';
 
 export default function Business() {
+
+  const {lang} = useLanguage();
+  const t = translations[lang];
+
   const businessModels = [
     {
       icon: CurrencyDollarIcon,
-      title: "Licencias SaaS",
-      description: "Suscripción mensual/anual para hospitales y clínicas con soporte técnico incluido.",
+      title: t.business1_title,
+      description: t.business1_description,
       metrics: [
-        { label: "Ahorro", value: "40%" },
-        { label: "ROI", value: "+65%" }
+        { label: t.business1_label1, value: "40%" },
+        { label: t.business1_label2 , value: "+65%" }
       ]
     },
     {
       icon: CloudIcon,
-      title: "Implementación Flexible",
-      description: "Soluciones en la nube o locales adaptadas a la infraestructura del cliente.",
+      title: t.business2_title,
+      description: t.business2_description,
       metrics: [
-        { label: "Tiempo", value: "~48h" },
-        { label: "Uptime", value: "99.9%" }
+        { label: t.business2_label1 , value: "~48h" },
+        { label: t.business2_label2 , value: "99.9%" }
       ]
     },
     {
       icon: WrenchIcon,
-      title: "Consultoría e Integración",
-      description: "Soporte técnico especializado y adaptación a flujos de trabajo existentes.",
+      title: t.business3_title,
+      description: t.business3_description,
       metrics: [
-        { label: "Soporte", value: "24/7" },
-        { label: "SLA", value: "≤2h" }
+        { label: t.business3_label1 , value: "24/7" },
+        { label: t.business3_label2 , value: "≤2h" }
       ]
     },
     {
       icon: BeakerIcon,
-      title: "Pruebas Piloto",
-      description: "Validación en entornos reales con datos médicos específicos del cliente.",
+      title: t.business4_title,
+      description: t.business4_description,
       metrics: [
-        { label: "Duración", value: "30d" },
-        { label: "Éxito", value: "95%" }
+        { label: t.business4_label1 , value: "30d" },
+        { label: t.business4_label2 , value: "95%" }
       ]
     }
   ];
@@ -51,10 +58,10 @@ export default function Business() {
   return (
     <Section decorative>
       <SectionHeader
-        title="Modelo de Negocio"
-        subtitle="Soluciones flexibles y escalables para instituciones médicas"
+        title= {t.business_title}
+        subtitle= {t.business_subtitle}
         badge={{
-          text: "Propuesta Comercial",
+          text: t.business_text,
           icon: BuildingOfficeIcon
         }}
       />

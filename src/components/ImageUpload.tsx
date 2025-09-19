@@ -3,12 +3,18 @@
 import { useState, useRef } from 'react';
 import { FiUpload, FiImage, FiCheck, FiLoader } from 'react-icons/fi';
 import { PredictionResult } from '@/types/types';
+import { useLanguage } from '@/idiomas/LanguageContext';
+import { translations } from '@/idiomas/translations';
 
 interface ImageUploadProps {
   onResults: (results: PredictionResult) => void;
 }
 
 export default function ImageUpload({ onResults }: ImageUploadProps) {
+
+  const {lang} = useLanguage();
+  const t = translations[lang];
+
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -120,10 +126,10 @@ export default function ImageUpload({ onResults }: ImageUploadProps) {
             </div>
             <div>
               <p className="text-[#021526] font-medium mb-1">
-                Arrastre su imagen aquí o haga clic para seleccionar
+                {t.imagen_span}
               </p>
               <p className="text-sm text-[#021526]/60">
-                Formatos soportados: DICOM, PNG, JPEG, TIFF
+                {t.imagen_span2}
               </p>
             </div>
           </div>
@@ -171,12 +177,12 @@ export default function ImageUpload({ onResults }: ImageUploadProps) {
         {isLoading ? (
           <>
             <FiLoader className="animate-spin w-5 h-5" />
-            <span>Analizando imagen...</span>
+            <span>{t.imagen_button1}</span>
           </>
         ) : (
           <>
             <FiUpload className="w-5 h-5" />
-            <span>Analizar Imagen</span>
+            <span>{t.imagen_button2}</span>
           </>
         )}
       </button>
@@ -186,13 +192,13 @@ export default function ImageUpload({ onResults }: ImageUploadProps) {
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
-          <span>Tamaño máximo: 10MB</span>
+          <span>{t.imagen_span3}</span>
         </div>
         <div className="flex items-center space-x-1">
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9h.01M21 9h.01M3 15h.01M21 15h.01M12 3v.01M12 21v.01M9 3h.01M15 3h.01M9 21h.01M15 21h.01" />
           </svg>
-          <span>Resolución: 2000×2000px</span>
+          <span>{t.imagen_span4}</span>
         </div>
       </div>
     </div>

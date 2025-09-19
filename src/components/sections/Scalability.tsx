@@ -1,3 +1,5 @@
+'use client'
+import { useLanguage } from '@/idiomas/LanguageContext';
 import { Section } from '../ui/Section';
 import { SectionHeader } from '../ui/SectionHeader';
 import { 
@@ -7,22 +9,27 @@ import {
   DeviceTabletIcon,
   RocketLaunchIcon 
 } from '@heroicons/react/24/outline';
+import { translations } from '@/idiomas/translations';
 
 export default function Scalability() {
+
+  const {lang} = useLanguage();
+  const t = translations[lang];
+
   const plans = [
     {
       icon: ChartBarIcon,
-      title: "Ampliación del Dataset",
-      description: "Integración de imágenes de mamografías 3D y resonancias magnéticas para mejorar la precisión.",
+      title: t.scalability1_title,
+      description: t.scalability1_description,
       metrics: [
-        { label: "Imágenes 3D", value: "+5K" },
-        { label: "Precisión", value: "+15%" }
+        { label: t.scalability1_label1, value: "+5K" },
+        { label: t.scalability1_label2, value: "+15%" }
       ]
     },
     {
       icon: CloudArrowUpIcon,
-      title: "Optimización del Modelo",
-      description: "Implementación de arquitecturas híbridas como Mask R-CNN o UNet para mejor rendimiento.",
+      title: t.scalability2_title,
+      description: t.scalability2_description,
       metrics: [
         { label: "mAP", value: "+20%" },
         { label: "IoU", value: "≥0.7" }
@@ -30,20 +37,20 @@ export default function Scalability() {
     },
     {
       icon: BuildingLibraryIcon,
-      title: "Colaboración Institucional",
-      description: "Validación clínica exhaustiva en hospitales y centros de investigación especializados.",
+      title: t.scalability3_title,
+      description: t.scalability3_description,
       metrics: [
-        { label: "Centros", value: "10+" },
-        { label: "Validación", value: "95%" }
+        { label: t.scalability3_label1, value: "10+" },
+        { label: t.scalability3_label2, value: "95%" }
       ]
     },
     {
       icon: DeviceTabletIcon,
-      title: "Análisis Multimodal",
-      description: "Integración con ultrasonido y resonancia magnética para diagnósticos más completos.",
+      title: t.scalability4_title,
+      description: t.scalability4_description,
       metrics: [
-        { label: "Modalidades", value: "3+" },
-        { label: "Precisión", value: "+25%" }
+        { label: t.scalability4_label1, value: "3+" },
+        { label: t.scalability4_label2, value: "+25%" }
       ]
     }
   ];
@@ -51,10 +58,10 @@ export default function Scalability() {
   return (
     <Section decorative>
       <SectionHeader
-        title="Plan de Escalabilidad"
-        subtitle="Mejoras futuras y expansión del proyecto"
+        title= {t.scalability_title}
+        subtitle= {t.scalability_subtitle}
         badge={{
-          text: "Crecimiento",
+          text: t.scalability_text,
           icon: RocketLaunchIcon
         }}
       />

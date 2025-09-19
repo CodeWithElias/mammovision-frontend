@@ -1,9 +1,21 @@
+'use client';
+import { useState } from 'react';
 import { Button } from '../ui/Button';
 import Image from 'next/image';
+import { useLanguage } from '@/idiomas/LanguageContext';
+import { translations } from '@/idiomas/translations';
+
+
 
 export function Hero() {
+  const { lang } = useLanguage();
+  const t = translations[lang];
+
+
+  
   return (
     <section className="relative min-h-[90vh] overflow-hidden">
+      
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
@@ -21,20 +33,18 @@ export function Hero() {
         <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 border border-[#EIF3F9]/40 rounded-full text-[#EIF3F9] text-sm backdrop-blur-sm">
             <span className="w-2 h-2 bg-[#FFD700] rounded-full animate-pulse"></span>
-            2.3M+ casos anuales • Detección temprana salva vidas
+            {t.noticia}
           </div>
           
           <h1 className="text-5xl lg:text-6xl font-bold mb-8 leading-tight">
-            Redefiniendo la Detección del{' '}
-            <span className="text-[#FFD700] inline-block">Cáncer de Mama</span>
+            {t.titulo1}{' '}
+            <span className="text-[#FFD000] inline-block">{t.titulo2}</span>
             <br />
-            <span className="text-[#EIF3F9]/90">con Inteligencia Artificial</span>
+            <span className="text-[#EIF3F9]/90">{t.titulo3}</span>
           </h1>
-          
+
           <p className="text-xl text-[#EIF3F9] mb-10 leading-relaxed max-w-2xl">
-            MammoVision combina IA y deep learning para ofrecer detección y segmentación
-            precisa de lesiones mamarias en tiempo real, apoyando a profesionales médicos
-            y fortaleciendo la medicina preventiva.
+            {t.description}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-5">
@@ -43,14 +53,14 @@ export function Hero() {
               variant="secondary"
               className="text-base px-8 py-4 bg-[#FFD700] hover:bg-[#FFD700]/90 text-[#021526]"
             >
-              Comenzar Análisis
+              {t.boton_analisis}
             </Button>
             <Button 
               href="#impacto" 
               variant="outline"
               className="text-base px-8 py-4 border-[#EIF3F9]/30 text-[#EIF3F9] hover:bg-[#EIF3F9]/10"
             >
-              Conocer Más
+              {t.boton_conocer}
             </Button>
           </div>
         </div>

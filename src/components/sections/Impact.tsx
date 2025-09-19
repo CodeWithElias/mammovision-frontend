@@ -1,3 +1,5 @@
+'use client'
+import { useLanguage } from '@/idiomas/LanguageContext';
 import { Section } from '../ui/Section';
 import { SectionHeader } from '../ui/SectionHeader';
 import { 
@@ -7,43 +9,48 @@ import {
   CurrencyDollarIcon,
   ChartBarSquareIcon 
 } from '@heroicons/react/24/outline';
+import { translations } from '@/idiomas/translations';
 
 export default function Impact() {
+
+  const {lang} = useLanguage();
+  const t = translations[lang];
+
   const impacts = [
     {
       icon: ArrowTrendingDownIcon,
-      title: "Reducción de Mortalidad",
-      description: "Mejora significativa en las tasas de detección temprana y supervivencia del cáncer de mama.",
+      title: t.impact1_title ,
+      description: t.impact1_description ,
       metrics: [
-        { label: "Detección", value: "+20%" },
-        { label: "Supervivencia", value: "+30%" }
+        { label: t.impact1_label1, value: "+20%" },
+        { label: t.impact1_label2, value: "+30%" }
       ]
     },
     {
       icon: ClockIcon,
-      title: "Optimización de Recursos",
-      description: "Disminución de la carga de trabajo de los radiólogos para enfoque en casos críticos.",
+      title: t.impact2_title,
+      description: t.impact2_description,
       metrics: [
-        { label: "Carga Laboral", value: "-40%" },
-        { label: "Eficiencia", value: "+65%" }
+        { label: t.impact2_label1, value: "-40%" },
+        { label: t.impact2_label2, value: "+65%" }
       ]
     },
     {
       icon: GlobeAltIcon,
-      title: "Accesibilidad Global",
-      description: "Democratización de tecnología avanzada para hospitales con recursos limitados.",
+      title: t.impact3_title,
+      description: t.impact3_description,
       metrics: [
-        { label: "Cobertura", value: "+60%" },
-        { label: "Adopción", value: "89%" }
+        { label: t.impact3_label1, value: "+60%" },
+        { label: t.impact3_label2, value: "89%" }
       ]
     },
     {
       icon: CurrencyDollarIcon,
-      title: "Reducción de Costos",
-      description: "Minimización de gastos asociados a diagnósticos tardíos y tratamientos complejos.",
+      title: t.impact4_title,
+      description: t.impact4_description,
       metrics: [
-        { label: "Ahorro", value: "40%" },
-        { label: "ROI", value: "+65%" }
+        { label: t.impact4_label1, value: "40%" },
+        { label: t.impact4_label2, value: "+65%" }
       ]
     }
   ];
@@ -51,10 +58,10 @@ export default function Impact() {
   return (
     <Section decorative>
       <SectionHeader
-        title="Impacto Transformador"
-        subtitle="Revolucionando la detección temprana del cáncer de mama"
+        title= {t.impact_title}
+        subtitle= {t.impact_subtitle}
         badge={{
-          text: "Resultados Esperados",
+          text: t.impact_text,
           icon: ChartBarSquareIcon
         }}
       />

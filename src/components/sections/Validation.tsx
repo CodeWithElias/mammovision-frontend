@@ -1,3 +1,5 @@
+'use client'
+import { useLanguage } from '@/idiomas/LanguageContext';
 import { Section } from '../ui/Section';
 import { SectionHeader } from '../ui/SectionHeader';
 import { 
@@ -7,13 +9,18 @@ import {
   BeakerIcon,
   CheckBadgeIcon 
 } from '@heroicons/react/24/outline';
+import { translations } from '@/idiomas/translations';
 
 export default function Validation() {
+
+  const {lang} = useLanguage();
+  const t = translations[lang];
+
   const validations = [
     {
       icon: ChartBarIcon,
-      title: "Precisión en Detección",
-      description: "Evaluación exhaustiva del modelo en conjunto de pruebas.",
+      title: t.validation1_title,
+      description: t.validation1_description,
       metrics: [
         { label: "mAP@50", value: "48.5%" },
         { label: "mAP@[50:95]", value: "31.5%" }
@@ -21,29 +28,29 @@ export default function Validation() {
     },
     {
       icon: DocumentCheckIcon,
-      title: "Detección de Malignidad",
-      description: "Alta sensibilidad en la identificación de casos positivos.",
+      title: t.validation2_title,
+      description: t.validation2_description,
       metrics: [
-        { label: "Precisión", value: "54.5%" },
-        { label: "Recall", value: "57.1%" }
+        { label: t.validation2_label1, value: "54.5%" },
+        { label: t.validation2_label2, value: "57.1%" }
       ]
     },
     {
       icon: BeakerIcon,
-      title: "Pruebas con CBIS-DDSM",
-      description: "Validación con dataset estándar en mamografía digital.",
+      title: t.validation3_title,
+      description: t.validation3_description,
       metrics: [
-        { label: "Imágenes", value: "2.8K+" },
-        { label: "Anotaciones", value: "3.4K+" }
+        { label: t.validation3_label1, value: "2.8K+" },
+        { label: t.validation3_label2, value: "3.4K+" }
       ]
     },
     {
       icon: ClockIcon,
-      title: "Rendimiento",
-      description: "Evaluación de velocidad y eficiencia en procesamiento.",
+      title: t.validation4_title,
+      description: t.validation4_description,
       metrics: [
-        { label: "Tiempo/Imagen", value: "~1.2s" },
-        { label: "IoU", value: "≥0.5" }
+        { label: t.validation4_label1, value: "~1.2s" },
+        { label: t.validation4_label2, value: "≥0.5" }
       ]
     }
   ];
@@ -51,10 +58,10 @@ export default function Validation() {
   return (
     <Section decorative>
       <SectionHeader
-        title="Validación del Proyecto"
-        subtitle="Resultados respaldados por datos y pruebas exhaustivas"
+        title= {t.validation_title}
+        subtitle= {t.validation_subtitle}
         badge={{
-          text: "Resultados Validados",
+          text: t.validation_text,
           icon: CheckBadgeIcon
         }}
       />

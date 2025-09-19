@@ -1,3 +1,4 @@
+'use client'
 import { Section } from '../ui/Section';
 import { SectionHeader } from '../ui/SectionHeader';
 import { 
@@ -6,43 +7,49 @@ import {
   ExclamationTriangleIcon,
   LightBulbIcon 
 } from '@heroicons/react/24/outline';
+import { Lang, useLanguage } from '@/idiomas/LanguageContext';
+import { translations } from '@/idiomas/translations';
 
 export default function Introduction() {
+
+  const {lang} = useLanguage();
+  const t = translations[lang];
+  
   const challenges = [
     {
       icon: HeartIcon,
-      title: "Principal Causa de Mortalidad",
-      description: "El cáncer de mama afecta a millones de mujeres globalmente, con 2.3M de nuevos casos anuales.",
+      title: t.desafio1_titulo,
+      description: t.desafio1_description,
       metrics: [
-        { label: "Casos Anuales", value: "2.3M+" },
-        { label: "Impacto", value: "Global" }
+        { label: t.desafio1_label1, value: "2.3M+" },
+        { label: t.desafio1_label2, value: t.desafio1_value }
       ]
     },
     {
       icon: ClockIcon,
-      title: "Detección Temprana",
-      description: "La identificación oportuna es crucial para salvar vidas y mejorar el pronóstico.",
+      title: t.desafio2_titulo,
+      description: t.desafio2_description,
       metrics: [
-        { label: "Supervivencia", value: "+30%" },
-        { label: "Efectividad", value: "Alta" }
+        { label: t.desafio2_label1, value: "+30%" },
+        { label: t.desafio2_label2, value: t.desafio2_value }
       ]
     },
     {
       icon: ExclamationTriangleIcon,
-      title: "Desafíos Actuales",
-      description: "Los métodos tradicionales enfrentan limitaciones en precisión y accesibilidad.",
+      title: t.desafio3_titulo,
+      description: t.desafio3_description,
       metrics: [
-        { label: "Falsos Negativos", value: "10-20%" },
-        { label: "Subjetividad", value: "Alta" }
+        { label: t.desafio3_label1, value: "10-20%" },
+        { label: t.desafio3_label2, value: t.desafio3_value }
       ]
     },
     {
       icon: LightBulbIcon,
-      title: "Solución Innovadora",
-      description: "IA y deep learning para detección precisa y segmentación en tiempo real.",
+      title: t.desafio4_titulo,
+      description: t.desafio4_description,
       metrics: [
-        { label: "Precisión", value: "91.2%" },
-        { label: "Tiempo", value: "~1.2s" }
+        { label: t.desafio4_label1, value: "91.2%" },
+        { label: t.desafio4_label2, value: "~1.2s" }
       ]
     }
   ];
@@ -50,10 +57,10 @@ export default function Introduction() {
   return (
     <Section decorative>
       <SectionHeader
-        title="El Desafío del Cáncer de Mama"
-        subtitle="Transformando el diagnóstico con tecnología avanzada"
+        title={t.titulo_desafio}
+        subtitle={t.subtitulo_desafio}
         badge={{
-          text: "Contexto Global",
+          text: t.text_desafio,
           icon: HeartIcon
         }}
       />

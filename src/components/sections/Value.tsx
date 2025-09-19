@@ -1,3 +1,5 @@
+'use client'
+import { useLanguage } from '@/idiomas/LanguageContext';
 import { Section } from '../ui/Section';
 import { SectionHeader } from '../ui/SectionHeader';
 import { 
@@ -7,43 +9,48 @@ import {
   HeartIcon,
   StarIcon 
 } from '@heroicons/react/24/outline';
+import { translations } from '@/idiomas/translations';
 
 export default function Value() {
+
+  const {lang} = useLanguage();
+  const t = translations[lang];
+
   const values = [
     {
       icon: ShieldCheckIcon,
-      title: "Diagnósticos más Precisos",
-      description: "Reduce errores y mejora la identificación de lesiones malignas en etapas tempranas.",
+      title: t.value1_title,
+      description: t.value1_description,
       metrics: [
-        { label: "Precisión", value: "54.5%" },
-        { label: "Recall", value: "57.1%" }
+        { label: t.value1_label1, value: "54.5%" },
+        { label: t.value1_label2, value: "57.1%" }
       ]
     },
     {
       icon: ClockIcon,
-      title: "Optimización del Tiempo",
-      description: "Acelera el análisis de imágenes y reduce significativamente la carga de trabajo médico.",
+      title: t.value2_title,
+      description: t.value2_description,
       metrics: [
-        { label: "Reducción", value: "-40%" },
-        { label: "Eficiencia", value: "+65%" }
+        { label: t.value2_label1, value: "-40%" },
+        { label: t.value2_label2, value: "+65%" }
       ]
     },
     {
       icon: GlobeAltIcon,
-      title: "Acceso Democratizado",
-      description: "Adaptable a cualquier entorno clínico, permitiendo su uso en hospitales con recursos limitados.",
+      title: t.value3_title,
+      description: t.value3_description,
       metrics: [
-        { label: "Cobertura", value: "100%" },
-        { label: "Adaptabilidad", value: "Alta" }
+        { label: t.value3_label1, value: "100%" },
+        { label: t.value3_label2, value: t.value3_value1 }
       ]
     },
     {
       icon: HeartIcon,
-      title: "Medicina Preventiva",
-      description: "Facilita la detección oportuna y mejora significativamente las tasas de supervivencia.",
+      title: t.value4_title,
+      description: t.value4_description,
       metrics: [
-        { label: "Detección", value: "+30%" },
-        { label: "Supervivencia", value: "+20%" }
+        { label: t.value4_label1, value: "+30%" },
+        { label: t.value4_label2, value: "+20%" }
       ]
     }
   ];
@@ -51,10 +58,10 @@ export default function Value() {
   return (
     <Section decorative>
       <SectionHeader
-        title="Propuesta de Valor"
-        subtitle="Transformando el diagnóstico del cáncer de mama"
+        title= {t.value_title}
+        subtitle= {t.value_subtitle}
         badge={{
-          text: "Valor Diferencial",
+          text: t.value_text,
           icon: StarIcon
         }}
       />
