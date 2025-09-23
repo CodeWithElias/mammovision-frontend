@@ -2,7 +2,7 @@ import axios from 'axios';
 import { PredictionResult } from '@/types/types';
 
 // const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mammovision-backend-nxzk.onrender.com';
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mammovision-backend-leub.onrender.com';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://mammovision-backend-ehro.onrender.com';
 //const API_URL = 'http://192.168.1.41:10000';
 export const api = axios.create({
   baseURL: API_URL,
